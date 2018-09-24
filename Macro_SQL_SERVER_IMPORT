@@ -1,0 +1,125 @@
+MACRO: "SQL_SERVER_IMPORT"
+  ' Import entire database from Microsoft SQL Server into Excel
+  ' You can also view this code by opening up the Project4_Chalhon_Daniel.xlsm file and viewing the macros directly. 
+  
+Sub SQL_SERVER_IMPORT()
+
+
+' Create a connection object.
+Dim cnSIMPSONS As ADODB.Connection
+Set cnSIMPSONS = New ADODB.Connection
+
+' Provide the connection string.
+Dim strConn As String
+
+'Connect to the SQLEXPRESS database on the LAN server.
+strConn = "Provider=SQLOLEDB;Data Source=falkland.pods.bu.int\SQLEXPRESS;Initial Catalog=Project4_Chalhon_Daniel;Trusted_connection=yes;"
+
+'Now open the connection.
+cnSIMPSONS.Open strConn
+
+' Create a recordset object.
+Dim rsSIMPSONS As ADODB.Recordset
+Set rsSIMPSONS = New ADODB.Recordset
+
+With rsSIMPSONS
+    ' Assign the Connection object.
+    .ActiveConnection = cnSIMPSONS
+
+'Alternately you can use rsSIMPSONS.<whatever Object you are looking for>
+    rsSIMPSONS.ActiveConnection = cnSIMPSONS
+
+    ' Extract the required records.
+    .Open "SELECT * FROM Product"
+    
+    ' Copy the headers into row 1 on Sheet1 (you can do this with loops too).
+    Worksheets("Sheet1").Range("A1") = .Fields(0).Name
+    Worksheets("Sheet1").Range("B1") = .Fields(1).Name
+    Worksheets("Sheet1").Range("C1") = .Fields(2).Name
+    Worksheets("Sheet1").Range("D1") = .Fields(3).Name
+    Worksheets("Sheet1").Range("E1") = .Fields(4).Name
+    Worksheets("Sheet1").Range("F1") = .Fields(5).Name
+    
+    ' Copy the records into cell A2 on Sheet1.
+    Worksheets("Sheet1").Range("A2").CopyFromRecordset rsSIMPSONS
+
+    ' Close the SELECT command
+     .Close
+
+ ' Extract the required records.
+    .Open "SELECT * FROM Invoice"
+    
+    ' Copy the headers into row 1 on Sheet2
+    Worksheets("Sheet2").Range("A1") = .Fields(0).Name
+    Worksheets("Sheet2").Range("B1") = .Fields(1).Name
+    Worksheets("Sheet2").Range("C1") = .Fields(2).Name
+    Worksheets("Sheet2").Range("D1") = .Fields(3).Name
+    Worksheets("Sheet2").Range("E1") = .Fields(4).Name
+    Worksheets("Sheet2").Range("F1") = .Fields(5).Name
+    Worksheets("Sheet2").Range("G1") = .Fields(6).Name
+    Worksheets("Sheet2").Range("H1") = .Fields(7).Name
+    
+    ' Copy the records into cell A2 on Sheet2.
+    Worksheets("Sheet2").Range("A2").CopyFromRecordset rsSIMPSONS
+
+    ' Close the SELECT command
+     .Close
+     
+      ' Extract the required records.
+    .Open "SELECT * FROM Customer"
+    
+    ' Copy the headers into row 1 on Sheet3
+    Worksheets("Sheet3").Range("A1") = .Fields(0).Name
+    Worksheets("Sheet3").Range("B1") = .Fields(1).Name
+    Worksheets("Sheet3").Range("C1") = .Fields(2).Name
+    Worksheets("Sheet3").Range("D1") = .Fields(3).Name
+    Worksheets("Sheet3").Range("E1") = .Fields(4).Name
+    Worksheets("Sheet3").Range("F1") = .Fields(5).Name
+    
+    ' Copy the records into cell A2 on Sheet3.
+    Worksheets("Sheet3").Range("A2").CopyFromRecordset rsSIMPSONS
+
+    ' Close the SELECT command
+     .Close
+     
+      ' Extract the required records.
+    .Open "SELECT * FROM Rep"
+    
+    ' Copy the headers into row 1 on Sheet4
+    Worksheets("Sheet4").Range("A1") = .Fields(0).Name
+    Worksheets("Sheet4").Range("B1") = .Fields(1).Name
+    Worksheets("Sheet4").Range("C1") = .Fields(2).Name
+    Worksheets("Sheet4").Range("D1") = .Fields(3).Name
+    
+    ' Copy the records into cell A2 on Sheet4.
+    Worksheets("Sheet4").Range("A2").CopyFromRecordset rsSIMPSONS
+
+    ' Close the SELECT command
+     .Close
+     
+      ' Extract the required records.
+    .Open "SELECT * FROM Location"
+    
+    ' Copy the headers into row 1 on Sheet1
+    Worksheets("Sheet5").Range("A1") = .Fields(0).Name
+    Worksheets("Sheet5").Range("B1") = .Fields(1).Name
+    
+    ' Copy the records into cell A2 on Sheet5.
+    Worksheets("Sheet5").Range("A2").CopyFromRecordset rsSIMPSONS
+
+    ' Close the SELECT command
+     .Close
+
+End With
+
+'Now close the connection and clear out the ADODB objects
+cnSIMPSONS.Close
+Set rsSIMPSONS = Nothing
+Set cnSIMPSONS = Nothing
+
+Worksheets("Sheet1").Columns("A:F").AutoFit
+
+'Give an indicator that the code has finished running
+MsgBox "Interacting with SQL Server is Complete!"
+
+End Sub
