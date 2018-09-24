@@ -1,0 +1,38 @@
+' The purpose of this macro is to clear the cells that were imported from the SQL_SERVER_IMPORT macro.
+
+Sub Clear_Cells()
+    
+    With Worksheets("Sheet1").UsedRange
+        .ClearFormats
+        .ClearContents
+        
+        End With
+        
+        With Worksheets("Sheet2").UsedRange
+        .ClearFormats
+        .ClearContents
+        
+        End With
+        
+        With Worksheets("Sheet3").UsedRange
+        .ClearFormats
+        .ClearContents
+        
+        End With
+        
+        With Worksheets("Sheet4").UsedRange
+        .ClearFormats
+        .ClearContents
+        
+        End With
+        
+        With Worksheets("Sheet5").UsedRange
+        .ClearFormats
+        .ClearContents
+        
+        End With
+
+MsgBox "All data has been erased!"
+
+End Sub
+
