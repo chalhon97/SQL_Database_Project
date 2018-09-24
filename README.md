@@ -13,6 +13,6 @@ Opening the access file you should see that each table has been recognized as a 
 # IMPORTANT:
 The macros require Microsoft ActiveX data objects 6.1 to run (currently unavailable for mac). Please make sure this is enabled when you attempt to run the macros otherwise you will get a compile error. 
 
-To enable this open the macro window and go to tools -> referneces and check off the ActiveX data objects 6.1 box if not     alrady checked. 
+To enable this open the macro window and go to tools -> referneces and check off the ActiveX data objects 6.1 box if not     already checked. 
   
 Even if you are unable to run the macros feel free to look at the macro code files seperately.
