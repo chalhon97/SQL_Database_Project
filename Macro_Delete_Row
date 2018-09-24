@@ -1,0 +1,42 @@
+' This macro allows the user to delete the extra row added from all three databases (excel, access, SQL Sever)
+
+Sub Delete_Row()
+
+' Create a connection object.
+Dim cnSIMPSONS As ADODB.Connection
+Set cnSIMPSONS = New ADODB.Connection
+
+' Provide the connection string.
+Dim strConn As String
+
+'Connect to the SQLEXPRESS database on the LAN server.
+strConn = "Provider=SQLOLEDB;Data Source=falkland.pods.bu.int\SQLEXPRESS;Initial Catalog=Project4_Chalhon_Daniel;Trusted_connection=yes;"
+
+'Now open the connection.
+cnSIMPSONS.Open strConn
+
+' Create a recordset object.
+Dim rsSIMPSONS As ADODB.Recordset
+Set rsSIMPSONS = New ADODB.Recordset
+
+With rsSIMPSONS
+    ' Assign the Connection object.
+    .ActiveConnection = cnSIMPSONS
+
+'Alternately you can use rsSIMPSONS.<whatever Object you are looking for>
+    rsSIMPSONS.ActiveConnection = cnSIMPSONS
+
+    .Open "DELETE FROM Product WHERE PRODUCT_CODE=43109"
+   Close
+    
+With Worksheets("Sheet1")
+
+Range("A" & Rows(10).Row & ":F" & Rows(10).Row).ClearFormats
+
+Range("A" & Rows(10).Row & ":F" & Rows(10).Row).ClearContents
+
+MsgBox "Data in row 10 has been deleted from this sheet and FALKLAND on SQL SERVER!"
+
+End With
+End With
+End Sub
