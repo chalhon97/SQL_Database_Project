@@ -1,0 +1,110 @@
+' This macro enables the user to insert a new row into the imported excel database as well as the SQL Server and Access database (as a result of all three being linked)
+
+Sub Insert_Row()
+
+' Create a connection object.
+Dim cnSIMPSONS As ADODB.Connection
+Set cnSIMPSONS = New ADODB.Connection
+
+' Provide the connection string.
+Dim strConn As String
+
+'Connect to the SQLEXPRESS database on the LAN server.
+strConn = "Provider=SQLOLEDB;Data Source=falkland.pods.bu.int\SQLEXPRESS;Initial Catalog=Project4_Chalhon_Daniel;Trusted_connection=yes;"
+
+'Now open the connection.
+cnSIMPSONS.Open strConn
+
+' Create a recordset object.
+Dim rsSIMPSONS As ADODB.Recordset
+Set rsSIMPSONS = New ADODB.Recordset
+
+With rsSIMPSONS
+    ' Assign the Connection object.
+    .ActiveConnection = cnSIMPSONS
+
+'Alternately you can use rsSIMPSONS.<whatever Object you are looking for>
+    rsSIMPSONS.ActiveConnection = cnSIMPSONS
+
+
+'Inserting into table'
+    .Open "INSERT INTO Product (PRODUCT_CODE, PRODUCT, PRICE, QUANTITY, MINIMUM, REORDER) " & _
+" VALUES (43109, 'Slippers', 20, 4, 3, 0)"
+
+ ' Extract the required records.
+    .Open "SELECT * FROM Product WHERE PRODUCT_CODE=43109"
+    
+' Copy the records into cell A10 on Sheet1.
+    Worksheets("Sheet1").Range("A10").CopyFromRecordset rsSIMPSONS
+    
+    Close
+    
+With Worksheets("Sheet1")
+Range("A" & Rows(10).Row).Cells.Interior.ColorIndex = 6
+End With
+
+With Worksheets("Sheet1")
+Range("B" & Rows(10).Row).Cells.Interior.ColorIndex = 6
+End With
+
+With Worksheets("Sheet1")
+Range("C" & Rows(10).Row).Cells.Interior.ColorIndex = 6
+End With
+
+With Worksheets("Sheet1")
+Range("D" & Rows(10).Row).Cells.Interior.ColorIndex = 6
+End With
+
+With Worksheets("Sheet1")
+Range("E" & Rows(10).Row).Cells.Interior.ColorIndex = 6
+End With
+
+With Worksheets("Sheet1")
+Range("F" & Rows(10).Row).Cells.Interior.ColorIndex = 6
+End With
+
+MsgBox "A highlighted row has been inserted into Sheet1, Row 10 as well as in FALKLAND on SQL Server!"
+End With
+End Sub
+
+Sub Delete_Row()
+
+' Create a connection object.
+Dim cnSIMPSONS As ADODB.Connection
+Set cnSIMPSONS = New ADODB.Connection
+
+' Provide the connection string.
+Dim strConn As String
+
+'Connect to the SQLEXPRESS database on the LAN server.
+strConn = "Provider=SQLOLEDB;Data Source=falkland.pods.bu.int\SQLEXPRESS;Initial Catalog=Project4_Chalhon_Daniel;Trusted_connection=yes;"
+
+'Now open the connection.
+cnSIMPSONS.Open strConn
+
+' Create a recordset object.
+Dim rsSIMPSONS As ADODB.Recordset
+Set rsSIMPSONS = New ADODB.Recordset
+
+With rsSIMPSONS
+    ' Assign the Connection object.
+    .ActiveConnection = cnSIMPSONS
+
+'Alternately you can use rsSIMPSONS.<whatever Object you are looking for>
+    rsSIMPSONS.ActiveConnection = cnSIMPSONS
+
+    .Open "DELETE FROM Product WHERE PRODUCT_CODE=43109"
+   Close
+    
+With Worksheets("Sheet1")
+
+Range("A" & Rows(10).Row & ":F" & Rows(10).Row).ClearFormats
+
+Range("A" & Rows(10).Row & ":F" & Rows(10).Row).ClearContents
+
+MsgBox "Data in row 10 has been deleted from this sheet and FALKLAND on SQL SERVER!"
+
+End With
+End With
+End Sub
+
