@@ -1,2 +1,3 @@
 # SQL_Database_Project
-Migrating Database and including Excel connectivity
+Migrating database and including Excel connectivity
+
