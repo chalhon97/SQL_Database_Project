@@ -1,8 +1,0 @@
-[ODBC]
-DRIVER=SQL Server Native Client 11.0
-DATABASE=Project4_Chalhon_Daniel
-WSID=AAG02-10
-APP=Microsoft Office 2016
-Trusted_Connection=Yes
-SERVER=FALKLAND\SQLEXPRESS
-Description=Project4_Chalhon_Daniel_ODBC
